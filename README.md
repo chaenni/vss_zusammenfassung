@@ -131,6 +131,54 @@ Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4
 
 - Periodisch wird geprüft, ob alle Replikas noch verfügbar sind
 
+# Synchronization
+
+Synchronisierung von Zeit in einem verteilten System
+
+## Physical Clocks
+
+- Verschiedene Zeitzonen / Kalenderformate
+- Basierend auf Quartzkristallen
+
+### NTP
+
+![NTP](media/NTP.png)
+
+Offset wird korrigiert indem die Uhr schneller oder langsamer laufen gelassen wird. Ansonsten läuft man in die Gefahr, dass in Programmen, welche annehmen, dass die Zeit nur in eine Richtung läuft, Bugs auftreten.
+
+## Logical Clocks
+
+- Wird z.B. verwendet um zu Garantieren, dass Updatereihenfolge in einem verteilten DB-System, auf allen Nodes gleich ist.
+- Die genaue Zeit von Ereignissen ist oft nicht wichtig, solange die Reihenfolge klar ist.
+
+### Causality
+
+* Causality ist als *happens before* relation bekannt, e.g. a &rarr; b (event a passiert vor event b)
+* a &rarr; b ist wahr wenn mindestens eine der folgenden Bedingungen wahr ist:
+  * a und b laufen im gleichen Prozess und a passiert vor b
+  * a ist der Event des Sendens einer Nachricht und b ist der Event des Empfangens der gleichen Nachricht
+  *  a&rarr; x && x &rarr; b (transitivität)
+
+### Concurrency
+
+* a || c heisst einfach, dass es keine &rarr; Relationen zwischen a und c gibt. 
+
+### Übung Causality / Concurrency 
+
+![Causality](media/Causality.png)
+
+a1 &rarr; a3 wahr
+
+a1 &rarr; b1 falsch
+
+a1 || b1 wahr
+
+a1 || a2 falsch
+
+### Lambert's Logical Clock
+
+TODO
+
 # Bitcoin
 
 Alle 10 Minuten neuer Block (Netzwerk ändert die Schwierigkeit, dass dies meistens der Fall ist). Die Schwierigkeit definiert, wieviel des Hashes übereinstimmen muss.
