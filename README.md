@@ -103,3 +103,9 @@ Zusätzlich erhält man die Fees, der Transaktionen welche man in seinen Block a
 Maximal 21 Mio BTC
 
 Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit verhindert man, dass sich (längere) Trees bilden.
+
+## Nachteile
+
+* Power Consumption: 6 AKW Leibstadt
+* Skalierbarkeit: Bitcoin 7 Transactions per Second, Visa 57'000
+* Volatile Exchange Rate
