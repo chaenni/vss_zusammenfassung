@@ -23,12 +23,12 @@ typora-copy-images-to: ./media
 - Namen sind unstrukturiert (interne Struktur erlaubt z.B. IP Adresse, aber nicht für Auflösung verwendet)
 - Broadcasting wird zur Auflösung verwendet, z.B. in ARP: "Wer ist 10.1.2.4 ?"
 
-###Vorteile:
+### Vorteile:
 
 - kein Masterknoten benötigt
 - einfach zu implementieren
 
-###Nachteile:
+### Nachteile:
 
 - Skalliert nicht
 - Einfach sich als andere Entity auszugeben
