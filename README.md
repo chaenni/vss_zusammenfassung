@@ -201,6 +201,75 @@ a1 || a2 falsch
 
 ![vector_clock-3043383](media/vector_clock.png)
 
+# BitTorrent
+
+File-Sharing. Ansatz mit Client/Server wäre ein CDN.
+
+Ansatz von BitTorrent/P2P ist, dass ein File in Blöcke unterteilt wird, und jeder Client einen oder mehrere Blöcke vorliegen hat. Nun kann man herausfinden, welche Clients welche Teile haben, und von ihnen die entsprechenden Teile herunterladen.
+
+Weiter kann man, wenn man nun einen Teil heruntergeladen hat, diesen auch wieder für andere Clients hochladen.
+
+
+
+Achtung: zum Bootstrap/wie auch immer braucht es immer noch einen Tracker, welcher einem sagt, wo es denn Clients/Peers gibt (vergleiche Chord, einen Peer des Rings muss man bereits kennen). Ganz ohne Client/Server kommt es also nicht aus.
+
+Terminologie
+
+* Leecher: hat nur Teile eines Files (zur Verfügung gestellt)
+* Seeder: stellt alle Teile zur Verfügung
+
+Involvierte Parteien
+
+* Tracker: weiss, wer die Peers/Clients sind
+* Peer/Client: hält die Files bereit und meldet sich beim Tracker
+* Web Server: hält .torrent-File bereit (=> enthält Tracker-Informationen, Hashes usw)
+
+## File sharen/herunterladen
+
+Sharen
+
+* .torrent-File erstellen und X.file referenzieren
+* .torrent-File im eigenen Client öffnen mit bereitliegenden X.file
+* .torrent-File auf Web Server legen
+
+Herunterladen
+
+* .torrent-File auf Web Server finden
+* .torrent-File öffnen
+  * Tracker fragen, wer die Peers sind
+* Von Peers herunterladen
+* Zu anderen Peers hochladen
+
+## Blöcke
+
+Blöcke werden "Chunks" oder "Pieces" genannt und haben eine fixe Grösse (meistens 256KB). Der letzte Block wird natürlich kleiner. Diese werden mit SHA1-Hashes versehen (20 Byte)
+
+## Piece Selection
+
+Es gibt einige Algorithmen, welches Piece man zuerst sucht. Sie alle versuchen, die "Fairness" gegenüber dem Netzwerk (nicht zu viele Verbindungen) mit der "Geschwindigkeit" (möglichst schnell alle Pieces herunterladen) in Einklang zu bringen. Für Beispiele, siehe S. 15
+
+## .torrent-File
+
+Sections
+
+* Announce: Tracker URLs
+  * **Annahme: Tracker, welche die Netzwerke abdecken, in denen das File "rumschwirrt"**
+* Info (Dictionary)
+  * Name
+  * Piece Length
+  * Pieces (**Hashes?**)
+  * Length (single File) ODER Files (Dictionary mit Name/Length)
+
+Alles in Bencoding
+
+## Peer Protokoll
+
+Mit TCP herunterladen, nachher Verfügbarkeit den Peers bekannt geben
+
+Fairness: Choking für solche, die nur herunterladen. Auch manchmal random unchoke, falls er sich gebessert hat.
+
+
+
 # Bitcoin
 
 Alle 10 Minuten neuer Block (Netzwerk ändert die Schwierigkeit, dass dies meistens der Fall ist). Die Schwierigkeit definiert, wieviel des Hashes übereinstimmen muss.
@@ -221,9 +290,11 @@ Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit ve
 
 # Etherum/Smart Contracts
 
+Gute Beschreibung: http://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html
+
 Neuer Block alle 14s, ergibt 3 ETH (fix)
 
-Nicht als Crypto-Währung gedacht!
+Nicht als Crypto-Währung gedacht! Sondern als Währung für Arbeit eines Smart Contracts.
 
 Idee:
 
@@ -240,6 +311,8 @@ Zwei Account-Arten:
 
 * *externally controlled* (kontrolliert von einem Private Key)
 * *contract*. Laufen nie von alleine, von Code kontrolliert, Aktionen werden von externally controlled-Accounts ausgelöst
+
+(Accounts stossen Smart Contract an. Dieser Smart Contract kann dann wiederum einen anderen Smart Contract anstossen, aber es geht alles von einem Account aus)
 
 Beide können ETH senden/empfangen
 
@@ -315,3 +388,18 @@ Reads sind gratis!
 Preconditions mit require (z.B. Owner dieses Contracts = Absender `require(owner == msg.sender)`)
 
 Gibt auch Events/Notifications (geht er aber nicht weiter drauf ein)
+
+Der Konstruktur läuft nur ein einziges Mal (wenn der Contract erstellt wurde)
+
+## ERC20
+
+Mit Ethereum kann man eine eigene Währung aufbauen, die durch das Ethereum-System gesichert wird. Um das sauber zu produzieren, gibt es ERC-20 (ERC = Ethereum Request for Comments, analog RFCs oder PEPs).
+
+Für mehr Details, letzte Vorlesung, S. 12ff
+
+## Random Numbers
+
+Sind ohne weiteres nicht möglich, da ja jede EVM zum selben Resultat kommen muss
+
+Man kann aber "pseudo-randomness" verwenden, indem man z.B. die letzte Block-Nr als Input verwendet. Es ist zufällig in dem Sinne, dass man es beim Schreiben und veröffentlichen des Contracts nicht weiss, aber jede EVM es nachvollziehen kann.
+
