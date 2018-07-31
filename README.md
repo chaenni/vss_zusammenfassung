@@ -179,6 +179,45 @@ a1 || a2 falsch
 
 TODO
 
+# BitTorrent
+
+File-Sharing. Ansatz mit Client/Server wäre ein CDN.
+
+Ansatz von BitTorrent/P2P ist, dass ein File in Blöcke unterteilt wird, und jeder Client einen oder mehrere Blöcke vorliegen hat. Nun kann man herausfinden, welche Clients welche Teile haben, und von ihnen die entsprechenden Teile herunterladen.
+
+Weiter kann man, wenn man nun einen Teil heruntergeladen hat, diesen auch wieder für andere Clients hochladen.
+
+Blöcke werden "Chunks" oder "Pieces" genannt und haben eine fixe Grösse (meistens )
+
+Achtung: zum Bootstrap/wie auch immer braucht es immer noch einen Tracker, welcher einem sagt, wo es denn Clients/Peers gibt (vergleiche Chord, einen Peer des Rings muss man bereits kennen). Ganz ohne Client/Server kommt es also nicht aus.
+
+Terminologie
+
+* Leecher: hat nur Teile eines Files (zur Verfügung gestellt)
+* Seeder: stellt alle Teile zur Verfügung
+
+Involvierte Parteien
+
+* Tracker: weiss, wer die Peers/Clients sind
+* Peer/Client: hält die Files bereit und meldet sich beim Tracker
+* Web Server: hält .torrent-File bereit (=> enthält Tracker-Informationen, Hashes usw)
+
+## File sharen/herunterladen
+
+Sharen
+
+* .torrent-File erstellen und X.file referenzieren
+* .torrent-File im eigenen Client öffnen mit bereitliegenden X.file
+* .torrent-File auf Web Server legen
+
+Herunterladen
+
+* .torrent-File auf Web Server finden
+* .torrent-File öffnen
+  * Tracker fragen, wer die Peers sind
+* Von Peers herunterladen
+* Zu anderen Peers hochladen
+
 # Bitcoin
 
 Alle 10 Minuten neuer Block (Netzwerk ändert die Schwierigkeit, dass dies meistens der Fall ist). Die Schwierigkeit definiert, wieviel des Hashes übereinstimmen muss.
