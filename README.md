@@ -199,3 +199,44 @@ UTXO-basiert
 
 ![image-20180731121717386](media/image-20180731121717386.png)
 
+## Merkle Tree
+
+Hash-Tree. Hash 0 = Hash 0-0 || Hash 0-1 (|| = Concatenation)
+
+![image-20180731122137654](media/image-20180731122137654.png)
+
+### Beispiel eines Merkle Trees
+
+Verification (BitTorrent)
+
+* Peer A has top hash (root hash) 
+* Peer downloads C4 from peer B
+* create hash 8
+* Need hash 10, 13, 3 (uncle hash)
+* Can be from peer B 
+* With 8,10,13,3 can create root hash → verify this root hash 
+
+![image-20180731122051199](media/image-20180731122051199.png)
+
+## Solidity
+
+Sprache für Smart Contracts für Ethereum **nur für Ethereum?**
+
+Um den Preis zu begründen, kann man sich immer überlegen, dass alle Nodes diese Berechnung durchführen müssen.
+
+State-Variablen sind teuer!
+
+Kennt primitive Typen, Structs, Maps und Arrays
+
+`constant` Funktionen modifizieren den State nicht (siehe Getter-Code:)
+
+```
+function get(uint nr) public constant returns (string) { 
+	return accounts[nr].addr;
+}
+function set(uint nr, string addr) public {
+	require(owner == msg.sender);
+	accounts[counter++] = Account(addr, nr); 
+}
+```
+
