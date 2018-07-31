@@ -123,3 +123,40 @@ Idee:
 * Man sendet den Smart Contract und die Funds ins Netzwerk
 * Falls die Funds nicht ausreichen (vom Miner validiert), wird der Zustand zurückgesetzt und die ETH/Gwei sind weg
 
+Man kann das Ethereum-Netzwerk als globalen Computer ansehen. Jede Node rechnet den Smart Contract durch und erhält das gleiche Ergebnis. Kann man als "Etherum VM" (EVM) ansehen.
+
+Basiert momentan noch auf Proof of Work, aber nicht ASIC-tauglich
+
+Zwei Account-Arten:
+
+* *externally controlled* (kontrolliert von einem Private Key)
+* *contract*. Laufen nie von alleine, von Code kontrolliert, Aktionen werden von externally controlled-Accounts ausgelöst
+
+Beide können ETH senden/empfangen
+
+Bitcoin ist, im Gegensatz, UTXO-based.
+
+## Account-based vs UTXO-based
+
+Account-basiert
+
+* Globaler State mit Accounts, die Balance und Code beinhalten
+* Transaktion ist valid, wenn der Account genügend Balance hat
+* Wenn der Receiver Code hat, läuft dieser
+* Weniger Speicherplatz
+* Einfacher ("Easier for smart contracts, stateful scripting")
+
+![image-20180731121703826](media/image-20180731121703826.png)
+
+UTXO-basiert
+
+* Jeder Input muss valid sein und noch nicht verbraucht sein
+* Der totale Input muss dem totalen Output entsprechen* (* oder darunter sein, aber das macht man nicht...)
+* Höhere Privacy (neue Adresse für jede Transaktion)
+* Keine Replay-Attacks (jedes Mal eine neue Nonce) **versteh ich noch nicht ganz**
+* Transaktionen können parallel laufen, wenn Output/Input separat
+
+
+
+![image-20180731121717386](media/image-20180731121717386.png)
+
