@@ -151,9 +151,11 @@ Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit ve
 
 # Etherum/Smart Contracts
 
+Gute Beschreibung: http://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html
+
 Neuer Block alle 14s, ergibt 3 ETH (fix)
 
-Nicht als Crypto-Währung gedacht!
+Nicht als Crypto-Währung gedacht! Sondern als Währung für Arbeit eines Smart Contracts.
 
 Idee:
 
@@ -170,6 +172,8 @@ Zwei Account-Arten:
 
 * *externally controlled* (kontrolliert von einem Private Key)
 * *contract*. Laufen nie von alleine, von Code kontrolliert, Aktionen werden von externally controlled-Accounts ausgelöst
+
+(Accounts stossen Smart Contract an. Dieser Smart Contract kann dann wiederum einen anderen Smart Contract anstossen, aber es geht alles von einem Account aus)
 
 Beide können ETH senden/empfangen
 
@@ -245,3 +249,18 @@ Reads sind gratis!
 Preconditions mit require (z.B. Owner dieses Contracts = Absender `require(owner == msg.sender)`)
 
 Gibt auch Events/Notifications (geht er aber nicht weiter drauf ein)
+
+Der Konstruktur läuft nur ein einziges Mal (wenn der Contract erstellt wurde)
+
+## ERC20
+
+Mit Ethereum kann man eine eigene Währung aufbauen, die durch das Ethereum-System gesichert wird. Um das sauber zu produzieren, gibt es ERC-20 (ERC = Ethereum Request for Comments, analog RFCs oder PEPs).
+
+Für mehr Details, letzte Vorlesung, S. 12ff
+
+## Random Numbers
+
+Sind ohne weiteres nicht möglich, da ja jede EVM zum selben Resultat kommen muss
+
+Man kann aber "pseudo-randomness" verwenden, indem man z.B. die letzte Block-Nr als Input verwendet. Es ist zufällig in dem Sinne, dass man es beim Schreiben und veröffentlichen des Contracts nicht weiss, aber jede EVM es nachvollziehen kann.
+
