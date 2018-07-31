@@ -92,3 +92,14 @@ Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4
 
 ### Lookup
 
+# Bitcoin
+
+Alle 10 Minuten neuer Block (Netzwerk ändert die Schwierigkeit, dass dies meistens der Fall ist). Die Schwierigkeit definiert, wieviel des Hashes übereinstimmen muss.
+
+Wenn ein neuer Block geminet wird, erhält man momentan 12.5 BTC, was auch vom Netzwerk festgelegt wird.
+
+Zusätzlich erhält man die Fees, der Transaktionen welche man in seinen Block aufgenommen hat.
+
+Maximal 21 Mio BTC
+
+Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit verhindert man, dass sich (längere) Trees bilden.
