@@ -109,3 +109,17 @@ Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit ve
 * Power Consumption: 6 AKW Leibstadt
 * Skalierbarkeit: Bitcoin 7 Transactions per Second, Visa 57'000
 * Volatile Exchange Rate
+
+# Etherum/Smart Contracts
+
+Neuer Block alle 14s, ergibt 3 ETH (fix)
+
+Nicht als Crypto-Währung gedacht!
+
+Idee:
+
+* Smart Contracts schreiben (Programm)
+* Anweisungen haben einen Gas Price (in Gwei, 1 Milliarde Gwei= 1 ETH)
+* Man sendet den Smart Contract und die Funds ins Netzwerk
+* Falls die Funds nicht ausreichen (vom Miner validiert), wird der Zustand zurückgesetzt und die ETH/Gwei sind weg
+
