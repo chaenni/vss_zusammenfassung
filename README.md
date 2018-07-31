@@ -92,6 +92,34 @@ Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4
 
 ### Lookup
 
+- Naiver ansatz wäre Linearer Search => O(numberOfNodes) (jeder Node kennt seinen Successor, weiter bis Node verantwortlicher Node erreicht ist)
+- Finger Table für schnelleren Lookup O(log N)
+- Finger Table hat index i in Range 1 - m
+- p.finger[i] zeigt auf succ(p + 2^(i - 1)) => p.figner[1] = succ(p + 1) = p.successor
+
+**Beispiel p.lookup(k, a)**: Suche value für Key k und schicke Resultat an Adresse a:
+
+1. Wenn p verantwortlich ist (p.predecessor < k <= p) sende id und Resource an a
+2. Wenn Successor verantwortlich ist ( p < k <= p.successor), leite request an p.successor weiter
+3. Sonst nächster Predecessor in Finger Table suchen und an diesen weiterleiten
+
+### Stabilization
+
+* Jeder Node führt regelmässig eine Stabilization durch. Dabei wird überprüft ob successor, predecessor und fingertable noch stimmen und falls nötig korrigiert.
+* Successor wird überprüft indem p prüft ob p.successor.predecessor = p
+* Predecessor wird korrigiert indem jeder Node, seinen Successor periodisch informiert, dass er der Predecessor ist.
+* Jeder Node korrigiert regelmässig zufällige finger table entries: finger[i] = p.successor.lookup(n + 2^(i - 1), p)
+
+### Leaving (unplanned)
+
+- n verlässt Ring unerwartet 
+- Alle Ressourcen von n gehen verloren 
+- Ring ist unterbrochen bis nächste Stabilization
+
+### Replication
+
+TODO 
+
 # Bitcoin
 
 Alle 10 Minuten neuer Block (Netzwerk ändert die Schwierigkeit, dass dies meistens der Fall ist). Die Schwierigkeit definiert, wieviel des Hashes übereinstimmen muss.
