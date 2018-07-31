@@ -118,7 +118,18 @@ Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4
 
 ### Replication
 
-TODO 
+- Replication ist Lösung damit Resourcen bei unplanned Leaves nicht verloren gehen.
+
+- Jeder Entry wird r mal repliziert an folgenden Positionen:
+
+  ```java
+  for (int i = 0; i < r - 1; i++) {
+    int replIdx = (hash(FileUrl) + i * Math.pow(2, m) / r) % Math.pow(2, m);
+      storeReplicaAtPosition(replicaIndex);
+  }
+  ```
+
+- Periodisch wird geprüft, ob alle Replikas noch verfügbar sind
 
 # Bitcoin
 
