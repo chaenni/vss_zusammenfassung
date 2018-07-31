@@ -163,7 +163,7 @@ Offset wird korrigiert indem die Uhr schneller oder langsamer laufen gelassen wi
 
 * a || c heisst einfach, dass es keine &rarr; Relationen zwischen a und c gibt. 
 
-### Übung Concurrency / Causality
+### Übung Causality / Concurrency 
 
 ![Causality](media/Causality.png)
 
