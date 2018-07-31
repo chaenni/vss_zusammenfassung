@@ -187,7 +187,7 @@ Ansatz von BitTorrent/P2P ist, dass ein File in Blöcke unterteilt wird, und jed
 
 Weiter kann man, wenn man nun einen Teil heruntergeladen hat, diesen auch wieder für andere Clients hochladen.
 
-Blöcke werden "Chunks" oder "Pieces" genannt und haben eine fixe Grösse (meistens )
+
 
 Achtung: zum Bootstrap/wie auch immer braucht es immer noch einen Tracker, welcher einem sagt, wo es denn Clients/Peers gibt (vergleiche Chord, einen Peer des Rings muss man bereits kennen). Ganz ohne Client/Server kommt es also nicht aus.
 
@@ -217,6 +217,36 @@ Herunterladen
   * Tracker fragen, wer die Peers sind
 * Von Peers herunterladen
 * Zu anderen Peers hochladen
+
+## Blöcke
+
+Blöcke werden "Chunks" oder "Pieces" genannt und haben eine fixe Grösse (meistens 256KB). Der letzte Block wird natürlich kleiner. Diese werden mit SHA1-Hashes versehen (20 Byte)
+
+## Piece Selection
+
+Es gibt einige Algorithmen, welches Piece man zuerst sucht. Sie alle versuchen, die "Fairness" gegenüber dem Netzwerk (nicht zu viele Verbindungen) mit der "Geschwindigkeit" (möglichst schnell alle Pieces herunterladen) in Einklang zu bringen. Für Beispiele, siehe S. 15
+
+## .torrent-File
+
+Sections
+
+* Announce: Tracker URLs
+  * **Annahme: Tracker, welche die Netzwerke abdecken, in denen das File "rumschwirrt"**
+* Info (Dictionary)
+  * Name
+  * Piece Length
+  * Pieces (**Hashes?**)
+  * Length (single File) ODER Files (Dictionary mit Name/Length)
+
+Alles in Bencoding
+
+## Peer Protokoll
+
+Mit TCP herunterladen, nachher Verfügbarkeit den Peers bekannt geben
+
+Fairness: Choking für solche, die nur herunterladen. Auch manchmal random unchoke, falls er sich gebessert hat.
+
+
 
 # Bitcoin
 
