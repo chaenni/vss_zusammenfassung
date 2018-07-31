@@ -229,3 +229,8 @@ function set(uint nr, string addr) public {
 }
 ```
 
+Reads sind gratis!
+
+Preconditions mit require (z.B. Owner dieses Contracts = Absender `require(owner == msg.sender)`)
+
+Gibt auch Events/Notifications (geht er aber nicht weiter drauf ein)
