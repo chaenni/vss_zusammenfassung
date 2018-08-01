@@ -246,8 +246,6 @@ Mit TCP herunterladen, nachher Verfügbarkeit den Peers bekannt geben
 
 Fairness: Choking für solche, die nur herunterladen. Auch manchmal random unchoke, falls er sich gebessert hat.
 
-
-
 # Bitcoin
 
 Alle 10 Minuten neuer Block (Netzwerk ändert die Schwierigkeit, dass dies meistens der Fall ist). Die Schwierigkeit definiert, wieviel des Hashes übereinstimmen muss.
