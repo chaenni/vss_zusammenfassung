@@ -177,7 +177,29 @@ a1 || a2 falsch
 
 ### Lambert's Logical Clock
 
-TODO
+- Implementation von Causality
+
+- Lösung mit "Total Order"
+
+- Jeder Prozess Pi hat einen internen Zähler Ci(a), welcher jedem Event a im Prozess eine Nummer zuweist.
+
+- Jeder Prozess Pi inkrementiert (um wie viel ist egal) den Zähler zwischen aufeinanderfolgenden Events
+
+- Mit jeder Message wird der aktuelle Zähler mitgeschickt.
+
+- Event a: "senden m von Pi", Event b: "empfangen m auf Pj" &rarr; Cj(b) = auf max(Ci(a), Cj(b)) + 1
+
+  ![lamberts_clock](media/lamberts_clock.png)
+
+### Vector Clock
+
+* Lambert's Clock definiert zwar eine "Total Order", kann aber Causality nicht genau abbilden: a &rarr; b &ne; C(a) < C(b), Vector Clock kann das
+* Manchmal ist es nützlich zu wissen, dass zwei Events nicht Kausal voneinander abhängen
+* Jeder Prozess verwaltet einen internen Vektor Vi mit folgenden Eigenschaften:
+  * Vi[i] = Anzahl Events, die bis jetzt in Pi aufgetreten sind
+  * Wenn Vi[j] = k, weiss Pi, dass k events auf Pj stattgefunden haben
+
+![vector_clock-3043383](media/vector_clock.png)
 
 # BitTorrent
 
