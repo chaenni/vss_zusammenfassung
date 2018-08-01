@@ -74,6 +74,10 @@ typora-copy-images-to: ./media
 
 - Entität mit Key k gehört zu Node mit kleinstem Identifier p, so dass p >= k
 
+  - Auf Deutsch
+  - Entity k gehört zu Node p = k, oder
+  - Entity k gehört zum "nächsten" p
+
 - succ(k) Funktion (distributed function) gibt zurück auf welchem Node k gespeichert ist, z.B. succ(2) = 4
 
 ### Join
@@ -208,8 +212,6 @@ File-Sharing. Ansatz mit Client/Server wäre ein CDN.
 Ansatz von BitTorrent/P2P ist, dass ein File in Blöcke unterteilt wird, und jeder Client einen oder mehrere Blöcke vorliegen hat. Nun kann man herausfinden, welche Clients welche Teile haben, und von ihnen die entsprechenden Teile herunterladen.
 
 Weiter kann man, wenn man nun einen Teil heruntergeladen hat, diesen auch wieder für andere Clients hochladen.
-
-
 
 Achtung: zum Bootstrap/wie auch immer braucht es immer noch einen Tracker, welcher einem sagt, wo es denn Clients/Peers gibt (vergleiche Chord, einen Peer des Rings muss man bereits kennen). Ganz ohne Client/Server kommt es also nicht aus.
 
