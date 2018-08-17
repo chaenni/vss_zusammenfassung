@@ -205,6 +205,23 @@ a1 || a2 falsch
 
 ![vector_clock-3043383](media/vector_clock.png)
 
+## Vergleich (mathematisch)
+
+Symbole:
+
+* C(_) = Wert der Lamport's Clock für Event _
+* T(_) = Wert der (theoretischen) global synchronisierten Uhr für Event _
+* V(_) = Wert der Vektor-Uhr für Event _
+
+Was ist IMMER wahr?
+
+Lamport
+
+* a -> b => C(a) < C(b) TRUE
+* C(a) < C(b) => a -> b FALSE (können gleichzeitig sein)
+
+
+
 # BitTorrent
 
 File-Sharing. Ansatz mit Client/Server wäre ein CDN.
@@ -287,6 +304,66 @@ Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit ve
 * Power Consumption: 6 AKW Leibstadt
 * Skalierbarkeit: Bitcoin 7 Transactions per Second, Visa 57'000
 * Volatile Exchange Rate
+
+# Basics P2P (Bocek)
+
+## RPC (Remote Procedure Call)
+
+Protokoll, um Code auf fremden Rechnern anzustossen und ein Resultat zu erhalten. Unterstützt Binary (Performance) aber auch Text-Kommunikation (JSON, einfacheres Debugging). Es gibt gRPC und Apache Avro als Library/Framework.
+
+# DHTv1 Bocek
+
+DHTs erlauben keine Fuzzy Search, garantieren aber keine False Negatives und sind robust. Pro Node muss O(log(N)) Daten gespeichert werden und es sind O(log(N)) Schritte für einen Lookup nötig.
+
+Die Nodes und die "Files" verwenden denselben Addressraum. Sie konkurrenzieren aber nicht um Adressen. Das heisst, wenn es 1000 File-Adressen gäbe, gäbe es auch 1000 Node-Adressen. Es können aber beide die Adresse 336 haben.
+
+Möchte man ein File finden (Routing), so fragt man einen bekannten Peer in diesem Netzwerk. Dieser sucht entweder selbstständig nach dem File und liefert es nach einiger Zeit zurück (rekursiv), oder er gibt einem die Adresse eines neuen Peers, der näher am File liegt.
+
+Detail: egal ob iterativ oder rekursiv, kann es sein, dass man nur die Adresse des "End-Peers" erhält, statt das File direkt.
+
+## Interface
+
+Alle DHT-Implementationen bieten grob dieses Interface an.
+
+* Provisioning (bekannt machen): `Put(key, value)`
+* Requesting (searching): `Get(key)`
+* Reply ist immer der `value`
+
+## Kademlia
+
+Kademlia arbeitet mit einer XOR-Metrik statt Numerical Closeness, wie z.B. von Chord bekannt. **160 Bit** Identifier (Nodes/Items). Distanz zwischen Key "45" (`0b101101`) und Key "46" (`0b101110`) berechnen:
+
+```
+101101
+XOR
+101110
+=
+000011
+```
+
+Die Distanz ist also `0b11` = 3
+
+Bei Chord hat man von Distanz 1 1 Node, von Distanz 2 1 Node, ... von Distanz "halber Kreis" 1 Node. Bei Kademlia ist die Idee ähnlich, aber man hat Buckets für spezifische Distanzen. Dabei kennt man die Nachbarn besser, und die weiter entfernten Nodes weniger.
+
+Construction of Routing Table: TODO
+
+# DHTv2 Bocek
+
+## Bloom Filter
+
+Array mit `m` Bits, alle auf 0. Dann `m` unterschiedliche Hash-Funktionen verwenden, die als Output `[1..m]` haben. Auf diesem Index setzt man das Bit auf 1 (wenn es schon 1 ist, belässt man es)
+
+* Insertion: Bits setzen
+* Query: vielleicht ja, wenn alle Bits gesetzt sind (False Positive möglich); garantiert nein, wenn nicht alle gesetzt sind (keine False Negatives)
+* Deletion: auf einem einfachen Bloom Filter ist das nicht möglich
+
+False Positive Rate nimmt mit gefülltem Bloom Filter stetig zu.
+
+Varianten:
+
+* Compressed Bloom Filter, Generalized Bloom Filter (lässt entweder False Positives oder False Negatives zu), Counting Bloom Filters (Integer statt 0/1, so kann man auch löschen), Scalable Bloom Filter (wird grösser, wenn er zu voll wird)
+
+# TODO Vorlesungen 08 (nach Bloom Filter)-10
 
 # Etherum/Smart Contracts
 
