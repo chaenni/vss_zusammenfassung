@@ -18,7 +18,7 @@ typora-copy-images-to: ./media
 | Human Friendly Name       | Für menschliche Nutzung angepasster Name, z.B. Domain Name |
 | Location Independent Name | Standort von Entität kann ändern und trotzdem noch mit ihrem Namen gefunden werden. |
 
-![5D7F78B5-49C6-4D0E-B89A-608A264659D0](/Users/thde/dev/vss_zusammenfassung/media/5D7F78B5-49C6-4D0E-B89A-608A264659D0.png)
+![5D7F78B5-49C6-4D0E-B89A-608A264659D0](media/5D7F78B5-49C6-4D0E-B89A-608A264659D0.png)
 
 ## Flat Naming
 
@@ -327,7 +327,7 @@ Möchte man ein File finden (Routing), so fragt man einen bekannten Peer in dies
 
 Detail: egal ob iterativ oder rekursiv, kann es sein, dass man nur die Adresse des "End-Peers" erhält, statt das File direkt.
 
-![4DCD7F57-94CF-4C38-8D71-2A885114D6B0](/Users/thde/dev/vss_zusammenfassung/media/4DCD7F57-94CF-4C38-8D71-2A885114D6B0.png)
+![4DCD7F57-94CF-4C38-8D71-2A885114D6B0](media/4DCD7F57-94CF-4C38-8D71-2A885114D6B0.png)
 
 ## Interface
 
