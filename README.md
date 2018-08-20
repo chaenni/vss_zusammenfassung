@@ -563,6 +563,8 @@ False. Storage ist eine der teuersten Operationen.
 
 > Why is it not feasible to use a full client for the exercises?
 
+Because you'd have to download the whole chain.
+
 > Why is SafeMath often used?
 
 > Why does transfer() return a boolean?
