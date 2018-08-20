@@ -498,7 +498,6 @@ Kademlia works with XOR metrics and a routing table (like IP). Chord uses a cons
 > How can you optimize locality in Kademlia?
 
 
-
 > In which bucket on peer with id = 133 is the peer with id 199  stored in an 8-bit Kademlia system? 
 > Kademlia nodes store contact information about each other to route query messages. For each 0 <= i < 160, every node keeps a list of (IP, Port, NodeId) triples for nodes of distance between 2^i and 2^(i+1) from itself. We call these list k-buckets.
 
@@ -513,15 +512,25 @@ Die XOR Verknüpfung lautet also 01000010 und das höchste Bit ist dann 7. Gemä
 
 > Why does a blockchain not use DHTs to store data?
 
+Eine DHT hat nicht zum Ziel, Veränderungen erkennbar/nachvollziehbar/verifizierbar zu machen. Dies sind aber die Ziele einer Blockchain.
+
 > Message Queues are only used in distributed systems. True or False?
 
+False. Die Message Queue selber ist oft als verteiltes System aufgesetzt, die Clients können anders entwickelt werden.
+
 > What are Message Queues good for?
+
+* "Fire and forget": eine Message senden, wer daran interessiert ist, kann subscriben. Keine Punkt-zu-Punkt Verbindungen
+* Automatisches Queue Management
+* weitere?
 
 > Advantages of Message Queues?
 
 > Disadvantages of Message Queues?
 
 > Is Bitcoin using RSA or ECC for signatures?
+
+ECC (Google-Frage)
 
 > Are all the coins in an unspent TX output spent?
 
