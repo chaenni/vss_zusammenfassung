@@ -549,7 +549,11 @@ Transaction fee
 
 > Bitcoin Scripts are Turing complete. True or false?
 
+False
+
 > Ethereum smart contracts are turing complete.
+
+True
 
 > Storage in Ethereum is cheap. True or False?
 
