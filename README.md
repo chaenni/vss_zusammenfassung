@@ -18,7 +18,7 @@ typora-copy-images-to: ./media
 | Human Friendly Name       | Für menschliche Nutzung angepasster Name, z.B. Domain Name |
 | Location Independent Name | Standort von Entität kann ändern und trotzdem noch mit ihrem Namen gefunden werden. |
 
-![5D7F78B5-49C6-4D0E-B89A-608A264659D0](/Users/thde/dev/vss_zusammenfassung/media/5D7F78B5-49C6-4D0E-B89A-608A264659D0.png)
+![5D7F78B5-49C6-4D0E-B89A-608A264659D0](media/5D7F78B5-49C6-4D0E-B89A-608A264659D0.png)
 
 ## Flat Naming
 
@@ -327,7 +327,7 @@ Möchte man ein File finden (Routing), so fragt man einen bekannten Peer in dies
 
 Detail: egal ob iterativ oder rekursiv, kann es sein, dass man nur die Adresse des "End-Peers" erhält, statt das File direkt.
 
-![4DCD7F57-94CF-4C38-8D71-2A885114D6B0](/Users/thde/dev/vss_zusammenfassung/media/4DCD7F57-94CF-4C38-8D71-2A885114D6B0.png)
+![4DCD7F57-94CF-4C38-8D71-2A885114D6B0](media/4DCD7F57-94CF-4C38-8D71-2A885114D6B0.png)
 
 ## Interface
 
@@ -501,7 +501,6 @@ With the XOR approach the distance between node A and B is the same as between B
 > How can you optimize locality in Kademlia?
 
 
-
 > In which bucket on peer with id = 133 is the peer with id 199  stored in an 8-bit Kademlia system? 
 > Kademlia nodes store contact information about each other to route query messages. For each 0 <= i < 160, every node keeps a list of (IP, Port, NodeId) triples for nodes of distance between 2^i and 2^(i+1) from itself. We call these list k-buckets.
 
@@ -520,15 +519,19 @@ Bootrapping assumes that new nodes know a "well known peer" where the applicatio
 
 > Why does a blockchain not use DHTs to store data?
 
-Trust. They don't want to distribute the stored data.
+Eine DHT hat nicht zum Ziel, Veränderungen erkennbar/nachvollziehbar/verifizierbar zu machen. Dies sind aber die Ziele einer Blockchain.
 
 > Message Queues are only used in distributed systems. True or False?
 
-False. They're used everywhere were a "message like" system is helpful.
+False. Die Message Queue selber ist oft als verteiltes System aufgesetzt, die Clients können anders entwickelt werden.
 
-> What are Message Queues good for? / Advantages of Message Queues?
+> What are Message Queues good for?
 
-asynchronous communication, granular scalability, simplifed decoupling (a message broker organizes the messages), reliable
+* "Fire and forget": eine Message senden, wer daran interessiert ist, kann subscriben. Keine Punkt-zu-Punkt Verbindungen
+* Automatisches Queue Management
+* weitere?
+
+> Advantages of Message Queues?
 
 > Disadvantages of Message Queues?
 
@@ -549,6 +552,8 @@ Transaction fee
 > Ethereum smart contracts are turing complete.
 
 > Storage in Ethereum is cheap. True or False?
+
+False. Storage ist eine der teuersten Operationen.
 
 > Since the fork Ethereum classic did not revert TheDAO theft (3.6 million Ether), and an 1 ETC is currently worth 17$, the thief could have ~60m USD.
 
