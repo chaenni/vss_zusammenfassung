@@ -18,6 +18,8 @@ typora-copy-images-to: ./media
 | Human Friendly Name       | Für menschliche Nutzung angepasster Name, z.B. Domain Name |
 | Location Independent Name | Standort von Entität kann ändern und trotzdem noch mit ihrem Namen gefunden werden. |
 
+![5D7F78B5-49C6-4D0E-B89A-608A264659D0](/Users/thde/dev/vss_zusammenfassung/media/5D7F78B5-49C6-4D0E-B89A-608A264659D0.png)
+
 ## Flat Naming
 
 - Namen sind unstrukturiert (interne Struktur erlaubt z.B. IP Adresse, aber nicht für Auflösung verwendet)
@@ -58,11 +60,11 @@ typora-copy-images-to: ./media
 
 - Benutzt m-Bit Identifiers für Nodes und Keys
 
-- Namespace-Grösse: 2^m
+- Namespace-Grösse: $2^m$
 
 - m ist fix und gross (128, 160)
 
-- Benutzt Hash Funktion mit Range 0 - 2^m - 1
+- Benutzt Hash Funktion mit Range $0 - 2^m - 1$
 
 - Nodes kann man sich als logischen Ring vorstellen, Beispiel mit m = 3 und zwei Nodes:
 
@@ -311,6 +313,10 @@ Ab 6 nachfolgenden Blöcken wird dieser Block als bestätigt angesehen. Damit ve
 
 Protokoll, um Code auf fremden Rechnern anzustossen und ein Resultat zu erhalten. Unterstützt Binary (Performance) aber auch Text-Kommunikation (JSON, einfacheres Debugging). Es gibt gRPC und Apache Avro als Library/Framework.
 
+## Hole punching
+
+To punch a hole, each client connects to an unrestricted third-party server that temporarily stores external and internal address and port information for each client. The server then relays each client's information to the other, and using that information each client tries to establish direct connection; as a result of the connections using valid port numbers, restrictive firewalls or routers accept and forward the incoming packets on each side. 
+
 # DHTv1 Bocek
 
 DHTs erlauben keine Fuzzy Search, garantieren aber keine False Negatives und sind robust. Pro Node muss O(log(N)) Daten gespeichert werden und es sind O(log(N)) Schritte für einen Lookup nötig.
@@ -320,6 +326,8 @@ Die Nodes und die "Files" verwenden denselben Addressraum. Sie konkurrenzieren a
 Möchte man ein File finden (Routing), so fragt man einen bekannten Peer in diesem Netzwerk. Dieser sucht entweder selbstständig nach dem File und liefert es nach einiger Zeit zurück (rekursiv), oder er gibt einem die Adresse eines neuen Peers, der näher am File liegt.
 
 Detail: egal ob iterativ oder rekursiv, kann es sein, dass man nur die Adresse des "End-Peers" erhält, statt das File direkt.
+
+![4DCD7F57-94CF-4C38-8D71-2A885114D6B0](/Users/thde/dev/vss_zusammenfassung/media/4DCD7F57-94CF-4C38-8D71-2A885114D6B0.png)
 
 ## Interface
 
@@ -480,3 +488,57 @@ Sind ohne weiteres nicht möglich, da ja jede EVM zum selben Resultat kommen mus
 
 Man kann aber "pseudo-randomness" verwenden, indem man z.B. die letzte Block-Nr als Input verwendet. Es ist zufällig in dem Sinne, dass man es beim Schreiben und veröffentlichen des Contracts nicht weiss, aber jede EVM es nachvollziehen kann.
 
+## Exercises
+
+> What is the main difference of an XOR metric vs. a metric in Chord/Pastry?
+
+Kademlia works with XOR metrics and a routing table (like IP). Chord uses a consistent hashing (-> circle) and a finger table to get next to the wanted node.
+[1.2. XOR Distance and Basic Routing - YouTube](https://www.youtube.com/watch?v=w9UObz8o8lY)
+
+> How can you optimize locality in Kademlia?
+
+
+
+> In which bucket on peer with id = 133 is the peer with id 199  stored in an 8-bit Kademlia system? 
+> Kademlia nodes store contact information about each other to route query messages. For each 0 <= i < 160, every node keeps a list of (IP, Port, NodeId) triples for nodes of distance between 2^i and 2^(i+1) from itself. We call these list k-buckets.
+
+133 ist binär 10000101
+199 ist binär 11000111
+
+Die XOR Verknüpfung lautet also 01000010 und das höchste Bit ist dann 7. Gemäss dem Whitepaper ist er dann im Bucket mit Ids [2^7 ; 2^8) also im Bucket 7.
+
+> How does TomP2P send messages? JSON, Protobuf, or with a custom codec?
+
+> What happens during the bootstrapping phase?
+
+> Why does a blockchain not use DHTs to store data?
+
+> Message Queues are only used in distributed systems. True or False?
+
+> What are Message Queues good for?
+
+> Advantages of Message Queues?
+
+> Disadvantages of Message Queues?
+
+> Is Bitcoin using RSA or ECC for signatures?
+
+> Are all the coins in an unspent TX output spent?
+
+> Does it matter when an input is signed? Can it happen after an output was appended?
+
+> Bitcoin Scripts are Turing complete. True or false?
+
+> Ethereum smart contracts are turing complete.
+
+> Storage in Ethereum is cheap. True or False?
+
+> Since the fork Ethereum classic did not revert TheDAO theft (3.6 million Ether), and an 1 ETC is currently worth 17$, the thief could have ~60m USD.
+
+> Why is it not feasible to use a full client for the exercises?
+
+> Why is SafeMath often used?
+
+> Why does transfer() return a boolean?
+
+> What makes a token valuable?
