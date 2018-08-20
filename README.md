@@ -492,8 +492,11 @@ Man kann aber "pseudo-randomness" verwenden, indem man z.B. die letzte Block-Nr 
 
 > What is the main difference of an XOR metric vs. a metric in Chord/Pastry?
 
-Kademlia works with XOR metrics and a routing table (like IP). Chord uses a consistent hashing (-> circle) and a finger table to get next to the wanted node.
+With the XOR approach the distance between node A and B is the same as between B and A. In chord this is not the case
+
 [1.2. XOR Distance and Basic Routing - YouTube](https://www.youtube.com/watch?v=w9UObz8o8lY)
+
+[Peer-to-peer (P2P) Networks - Basic Algorithms - YouTube](https://www.youtube.com/watch?v=kXyVqk3EbwE)
 
 > How can you optimize locality in Kademlia?
 
@@ -509,21 +512,35 @@ Die XOR Verknüpfung lautet also 01000010 und das höchste Bit ist dann 7. Gemä
 
 > How does TomP2P send messages? JSON, Protobuf, or with a custom codec?
 
+Probably custom: [TomP2P/Decoder.java at master · tomp2p/TomP2P · GitHub](https://github.com/tomp2p/TomP2P/blob/master/core/src/main/java/net/tomp2p/message/Decoder.java)
+
 > What happens during the bootstrapping phase?
+
+Bootrapping assumes that new nodes know a "well known peer" where the application can store and retrieve key and values. 
 
 > Why does a blockchain not use DHTs to store data?
 
+Trust. They don't want to distribute the stored data.
+
 > Message Queues are only used in distributed systems. True or False?
 
-> What are Message Queues good for?
+False. They're used everywhere were a "message like" system is helpful.
 
-> Advantages of Message Queues?
+> What are Message Queues good for? / Advantages of Message Queues?
+
+asynchronous communication, granular scalability, simplifed decoupling (a message broker organizes the messages), reliable
 
 > Disadvantages of Message Queues?
 
+added complexity
+
 > Is Bitcoin using RSA or ECC for signatures?
 
+ECC, smaller keys, more performance
+
 > Are all the coins in an unspent TX output spent?
+
+Transaction fee
 
 > Does it matter when an input is signed? Can it happen after an output was appended?
 
