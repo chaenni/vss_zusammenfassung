@@ -521,6 +521,8 @@ Bootrapping assumes that new nodes know a "well known peer" where the applicatio
 
 Eine DHT hat nicht zum Ziel, Veränderungen erkennbar/nachvollziehbar/verifizierbar zu machen. Dies sind aber die Ziele einer Blockchain.
 
+Trust
+
 > Message Queues are only used in distributed systems. True or False?
 
 False. Die Message Queue selber ist oft als verteiltes System aufgesetzt, die Clients können anders entwickelt werden.
@@ -528,10 +530,8 @@ False. Die Message Queue selber ist oft als verteiltes System aufgesetzt, die Cl
 > What are Message Queues good for?
 
 * "Fire and forget": eine Message senden, wer daran interessiert ist, kann subscriben. Keine Punkt-zu-Punkt Verbindungen
-* Automatisches Queue Management
-* weitere?
-
-> Advantages of Message Queues?
+* Automatisches Queue Management (Message Broker)
+* Decoupling
 
 > Disadvantages of Message Queues?
 
