@@ -533,6 +533,8 @@ Die XOR Verknüpfung lautet also 01000010 und das höchste Bit ist dann 7. Gemä
 
 > Storage in Ethereum is cheap. True or False?
 
+False. Storage ist eine der teuersten Operationen.
+
 > Since the fork Ethereum classic did not revert TheDAO theft (3.6 million Ether), and an 1 ETC is currently worth 17$, the thief could have ~60m USD.
 
 > Why is it not feasible to use a full client for the exercises?
