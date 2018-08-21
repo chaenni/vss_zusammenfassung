@@ -371,7 +371,116 @@ Varianten:
 
 * Compressed Bloom Filter, Generalized Bloom Filter (lässt entweder False Positives oder False Negatives zu), Counting Bloom Filters (Integer statt 0/1, so kann man auch löschen), Scalable Bloom Filter (wird grösser, wenn er zu voll wird)
 
-# TODO Vorlesungen 08 (nach Bloom Filter)-10
+## TODO
+
+TODO 08 S. 21-33 (Range Queries, AND, FastSS, ...)
+
+### Replication
+
+Replikation macht die Consistency kaputt (Änderungen kommen nicht überall an)
+
+# DistApp
+
+## Consistency
+
+DHTs haben "weak consistency".
+
+* A lädt X1 hoch
+  * B holt X1 und lädt B1 hoch
+  * C holt X1 und lädt C1 hoch
+* Was ist jetzt gespeichert?
+
+Es braucht einen Koordinator. Bei zentralisierten Lösungen ist das einfach, bei dezentralisierten braucht es eine Coordinator Election
+
+### Paxos
+
+Protokoll um Konsensus zu erreichen
+
+Rollen:
+
+* Client/Proposer (Requester)
+* Acceptor (voter)
+* Leader (coordinator)
+* Learner (responder)
+
+1. Client sends request to a proposer
+2. Proposer sendet Proposal
+3. Wenn Mehrheit zustimmt, den Wert dem Acceptor senden, der Acceptor sendet es dem Learner
+4. Learner sendet es dem Client
+
+(ist aus Bocek-Folien, macht nicht ganz Sinn...)
+
+2 Phasen: prepare/promise; accept/accepted
+
+### Raft
+
+Alternative zu Paxos (vereinfacht)
+
+Rollen
+
+* Leader
+* Follower
+* Candidate
+
+### Kafka Leader Election
+
+* All nodes create a sequential node with path:
+  `/app/leader_election/guid_`
+* Append the 10-digit sequence number to the path:
+  `/app/leader_election/guid_0000000001`,
+  `/app/leader_election/guid_0000000002`
+* Smallest number becomes the leader
+* Each follower node watches the next smallest number.
+  E.g., the node /app/leader_election/guid_0000000008 will
+  watch /app/leader_election/guid_0000000007
+* If leader goes down, corresponding /app/leader_election
+  gets deleted
+* Next in line follower node will get the notification through
+  watcher about the leader removal
+* Next in line follower node will check if there are any
+  smaller number. If none, then it will assume the role of the
+  leader.
+
+### vDHT
+
+?, 09 S. 14
+
+## Protocols
+
+(Custom Encoding bei gRPC usw möglich, verstehe den Sinn dieser Folien nicht ganz)
+
+## RSync
+
+Daten übers Netzwerk synchronisieren. Data-Transfer soll minimiert werden
+
+Es gibt eine Weak Checksum und eine Strong Checksum. 
+
+1. Wenn die Weak Checksum nicht matcht, synchronisieren
+2. Wenn die Weak Checksum matcht, mit Strong Checksum prüfen
+3. Wenn die Strong Checksum nicht matcht, synchronisieren
+4. Wenn sie auch matcht, fertig
+
+TODO das "Sliding Window"-Verhalten (09 S. 26) beschreiben
+
+## Tor
+
+Client schickt Anfrage nicht direkt an Server, sondern über mehrere Random Relays. Zwischen diesen Relays wird verschlüsselt (der Betreiber kann die Daten aber einsehen). Von aussen gesehen verschwinden die Daten im 1. Relay und tauchen irgendwann im letzten Relay (Exit) wieder auf. Da aber von aussen nicht sichtbar ist, bei welchem Relay die Daten wieder auftauchen, ist es schwierig sie nachzuverfolgen.
+
+## Message Queues
+
+RabbitMQ, ActiveMQ, QPID, ZeroMQ (ohne dedicated Broker), Kafka
+
+Kafka:
+
+* Daten lesen/schreiben
+* Daten in einem verteilten, replizierten und fehlertoleranten Cluster speichern
+* Stream API (Aggregation)
+* Garantien
+  * Messages zu einem Topic werden in der Reihenfolge des Sendens behandelt
+  * Ein Consumer sieht die Records in dieser Reihenfolge
+  * Ein Topic mit Replication Factor N kann N-1 Fehler erleiden, ohne jegliche Einträge zu verlieren
+
+# TODO Vorlesung 10
 
 # Etherum/Smart Contracts
 
