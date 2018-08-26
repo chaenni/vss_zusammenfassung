@@ -70,30 +70,29 @@ typora-copy-images-to: ./media
 
   ![chord](media/chord.png)
 
-- Nodes werden mit id (p) identifiziert, p = hash(IPAdressOfNode)
+- Nodes werden mit id (p) identifiziert, `p = hash(IPAdressOfNode)`
 
-- Jeder Node kennt seinen successor, 1.successor = 4, 4.successor = 1
+- Jeder Node kennt seinen successor, `1.successor = 4`, `4.successor = 1`
 
 - Entität mit Key k gehört zu Node mit kleinstem Identifier p, so dass p >= k
 
-  - Auf Deutsch
-  - Entity k gehört zu Node p = k, oder
-  - Entity k gehört zum "nächsten" p
+  - **Auf Deutsch**: Entity k gehört zu Node p = k, oder Entity k gehört zum "nächsten" p
 
-- succ(k) Funktion (distributed function) gibt zurück auf welchem Node k gespeichert ist, z.B. succ(2) = 4
+- `succ(k)` Funktion (distributed Function) gibt zurück auf welchem Node k gespeichert ist, z.B. `succ(2) = 4`
 
 ### Join
 
 Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4.predecessor = 1.
 
-1. Neuer Node n sucht seinen successor n.successor = succ(n  + 1)
-2. Predecessor muss seinen successor updaten, wird aber nicht sofort gemacht sondern ersten im Stabilization Prozess
-3. Alle resourcen von succ(n+1) mit Keys k so dass succ(k) = n müssen nach n verschoben werden
+1. Neuer Node berechnet seine ID `p = hash(IPAdressOfNode)`
+2. Neuer Node n sucht seinen successor `n.successor = succ(p  + 1)`
+3. Predecessor muss seinen successor updaten, wird aber nicht sofort gemacht sondern erst im Stabilization Prozess
+4. Alle Ressourcen von succ(n+1) mit Keys k so dass succ(k) = n müssen nach n verschoben werden
 
 ### Leaving (planned)
 
 1. Node n will Ring verlassen
-2. Alle resourcen von n werden an n.successor übergeben
+2. Alle Ressourcen von n werden an n.successor übergeben
 3. n.predecessor wird informiert seinen successor auf n.successor zu ändern
 
 ### Lookup
@@ -101,7 +100,7 @@ Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4
 - Naiver ansatz wäre Linearer Search => O(numberOfNodes) (jeder Node kennt seinen Successor, weiter bis Node verantwortlicher Node erreicht ist)
 - Finger Table für schnelleren Lookup O(log N)
 - Finger Table hat index i in Range 1 - m
-- p.finger[i] zeigt auf succ(p + 2^(i - 1)) => p.figner[1] = succ(p + 1) = p.successor
+- `p.finger[i] = succ(p + 2^(i - 1)) `=> p.finger[1] = succ(p + 1) = p.successor
 
 **Beispiel p.lookup(k, a)**: Suche value für Key k und schicke Resultat an Adresse a:
 
@@ -130,7 +129,7 @@ Um Joins effizienter zu machen, merkt sich jeder Node seinen Predecessor, z.B. 4
 
   ```java
   for (int i = 0; i < r - 1; i++) {
-    int replIdx = (hash(FileUrl) + i * Math.pow(2, m) / r) % Math.pow(2, m);
+      int replIdx = (hash(FileUrl) + i * Math.pow(2, m) / r) % Math.pow(2, m);
       storeReplicaAtPosition(replicaIndex);
   }
   ```
